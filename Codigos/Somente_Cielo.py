@@ -10,8 +10,8 @@ def adicionar_underline(texto):
     return texto
 
 # Caminhos
-caminho_audios = r"C:\PROJETOS\Renomear_audios_py\Rayner\Audios Janeiro"
-arquivo_excel = r"C:\PROJETOS\Renomear_audios_py\Rayner\Renomear-Audios\Dados\BD_NPS Mensal_Jan25_2025.02.18.xlsx"
+caminho_audios = r"C:\PROJETOS\Renomear_audios_py\Rayner\Audios Fevereiro"
+arquivo_excel = r"C:\PROJETOS\Renomear_audios_py\Rayner\Renomear-Audios\Dados\BD_NPS_Mensal_Fev25.10.03.2025.xlsx"
 
 # Carregar o Excel
 pd.set_option('display.float_format', '{:.0f}'.format)
@@ -98,8 +98,8 @@ import os
 import pandas as pd
 
 # Caminhos
-caminho_audios = r"C:\PROJETOS\Renomear_audios_py\Rayner\Audios Janeiro"
-arquivo_excel = r"C:\PROJETOS\Renomear_audios_py\Rayner\Renomear-Audios\Dados\BD_NPS Mensal_Jan25_2025.02.18.xlsx"
+caminho_audios = r"C:\PROJETOS\Renomear_audios_py\Rayner\Audios Fevereiro"
+arquivo_excel = r"C:\PROJETOS\Renomear_audios_py\Rayner\Renomear-Audios\Dados\BD_NPS_Mensal_Fev25.10.03.2025.xlsx"
 
 # Carregar o Excel
 pd.set_option('display.float_format', '{:.0f}'.format)
