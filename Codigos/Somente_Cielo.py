@@ -23,69 +23,69 @@ print(df)
 # df[nets] = df[nets].applymap(adicionar_underline)
 
 
-# #=== Código para renomear arquivos com o nome no seguinte formato: "gravacao_1120315658_800_59427_NEG_20241127152236" (Cati) ===#
-# arquivos = os.listdir(caminho_audios)
-# for arquivo in arquivos:
-#     if arquivo.endswith(".WAV"):
-#         caminho_subarquivos = os.path.join(caminho_audios, arquivo)
-#         lista_nomes = arquivo.split("_")
-#         print(f'\nlista_nomes:\t{lista_nomes}')
-#         print(f'Tamanho: {len(lista_nomes)}')
-#         if len(lista_nomes) >= 5:
-#             ID = lista_nomes[3]
-#             ID = os.path.splitext(ID)[0]
-#             print(f'ID: {ID}')
-#             ATRIBUTO = lista_nomes[4]
-#             ATRIBUTO = os.path.splitext(ATRIBUTO)[0]
-#             print(f'ATRIBUTO: {ATRIBUTO}')
-#         else:
-#             ID = lista_nomes[1]
-#             ID = os.path.splitext(ID)[0]
-#             print(f'ID: {ID}')
-#             ATRIBUTO = lista_nomes[2]
-#             ATRIBUTO = os.path.splitext(ATRIBUTO)[0]
-#             print(f'ATRIBUTO: {ATRIBUTO}')
-#     else:
-#         continue 
+#=== Código para renomear arquivos com o nome no seguinte formato: "gravacao_1120315658_800_59427_NEG_20241127152236" (Cati) ===#
+arquivos = os.listdir(caminho_audios)
+for arquivo in arquivos:
+    if arquivo.endswith(".WAV"):
+        caminho_subarquivos = os.path.join(caminho_audios, arquivo)
+        lista_nomes = arquivo.split("_")
+        print(f'\nlista_nomes:\t{lista_nomes}')
+        print(f'Tamanho: {len(lista_nomes)}')
+        if len(lista_nomes) >= 5:
+            ID = lista_nomes[3]
+            ID = os.path.splitext(ID)[0]
+            print(f'ID: {ID}')
+            ATRIBUTO = lista_nomes[4]
+            ATRIBUTO = os.path.splitext(ATRIBUTO)[0]
+            print(f'ATRIBUTO: {ATRIBUTO}')
+        else:
+            ID = lista_nomes[1]
+            ID = os.path.splitext(ID)[0]
+            print(f'ID: {ID}')
+            ATRIBUTO = lista_nomes[2]
+            ATRIBUTO = os.path.splitext(ATRIBUTO)[0]
+            print(f'ATRIBUTO: {ATRIBUTO}')
+    else:
+        continue 
 
-#     try:
-#         for index, row in df.astype(str).iterrows():
-#             # Verificar se o nome está na coluna correta
-#             if ID == row['ID_ONDA'] and ATRIBUTO == row['Atributo']:
-#                 novo_nome = os.path.join(
-#                     # row['Credenciadora'], 
-#                     row['Class_NPS'], 
-#                     row['VSEG_1'], 
-#                     f"{row['Class_NPS']}_{row['VSEG_1']}_{row['NET']}_{row['ID_ONDA']}.WAV"
-#                 )
-#                 novo_caminho = os.path.join(caminho_audios, novo_nome)
+    try:
+        for index, row in df.astype(str).iterrows():
+            # Verificar se o nome está na coluna correta
+            if ID == row['ID_ONDA'] and ATRIBUTO == row['Atributo']:
+                novo_nome = os.path.join(
+                    # row['Credenciadora'], 
+                    row['Class_NPS'], 
+                    row['VSEG_1'], 
+                    f"{row['Class_NPS']}_{row['VSEG_1']}_{row['NET']}_{row['ID_ONDA']}.WAV"
+                )
+                novo_caminho = os.path.join(caminho_audios, novo_nome)
 
-#                 # Criar diretórios se necessário
-#                 os.makedirs(os.path.dirname(novo_caminho), exist_ok=True)
+                # Criar diretórios se necessário
+                os.makedirs(os.path.dirname(novo_caminho), exist_ok=True)
 
-#                 # Verificar se o arquivo ainda existe
-#                 if not os.path.exists(caminho_subarquivos):
-#                     print(f"Arquivo já processado ou movido: {caminho_subarquivos}")
-#                     break
+                # Verificar se o arquivo ainda existe
+                if not os.path.exists(caminho_subarquivos):
+                    print(f"Arquivo já processado ou movido: {caminho_subarquivos}")
+                    break
 
-#                 # Evitar sobrescrever arquivos existentes
-#                 contador = 1
-#                 while os.path.exists(novo_caminho):
-#                     novo_nome = os.path.join(
-#                         # row['Credenciadora'], 
-#                         row['Class_NPS'], 
-#                         row['VSEG_1'], 
-#                         f"{row['Class_NPS']}_{row['VSEG_1']}_{row['NET']}_{row['ID_ONDA']}_{contador}.WAV"
-#                     )
-#                     novo_caminho = os.path.join(caminho_audios, novo_nome)
-#                     contador += 1
+                # Evitar sobrescrever arquivos existentes
+                contador = 1
+                while os.path.exists(novo_caminho):
+                    novo_nome = os.path.join(
+                        # row['Credenciadora'], 
+                        row['Class_NPS'], 
+                        row['VSEG_1'], 
+                        f"{row['Class_NPS']}_{row['VSEG_1']}_{row['NET']}_{row['ID_ONDA']}_{contador}.WAV"
+                    )
+                    novo_caminho = os.path.join(caminho_audios, novo_nome)
+                    contador += 1
 
-#                 # Renomear o arquivo
-#                 os.rename(caminho_subarquivos, novo_caminho)
-#                 # print(f"Arquivo '{arquivo}' renomeado para '{novo_caminho}'")
+                # Renomear o arquivo
+                os.rename(caminho_subarquivos, novo_caminho)
+                # print(f"Arquivo '{arquivo}' renomeado para '{novo_caminho}'")
     
-#     except Exception as e:
-#         print(f"Erro inesperado {e=}, {type(e)=}")
+    except Exception as e:
+        print(f"Erro inesperado {e=}, {type(e)=}")
 
 
 

@@ -10,13 +10,15 @@ def adicionar_underline(texto):
     return texto
 
 # Caminhos
-caminho_audios = r"C:\PROJETOS\Renomear_audios_py\cielo\cielo_com_underline\Teste"
-arquivo_excel = r"C:\PROJETOS\Renomear_audios_py\cielo\cielo_com_underline\auto_Cielo_renomear\dados\bd_teste_rayner.xlsx"
+# caminho_audios = r"C:\PROJETOS\Renomear_audios_py\cielo\cielo_com_underline\Teste"
+# arquivo_excel = r"C:\PROJETOS\Renomear_audios_py\cielo\cielo_com_underline\auto_Cielo_renomear\dados\bd_teste_rayner.xlsx"
+caminho_audios = r"C:\PROJETOS\Renomear_audios_py\Rayner\Audios Marco"
+arquivo_excel = r"C:\PROJETOS\Renomear_audios_py\Rayner\Renomear-Audios\Dados\EMP_Cielo Satisfacao_MAR25_2025.04.28__RAYNER.xlsx"
 
 # Carregar o Excel
 pd.set_option('display.float_format', '{:.0f}'.format)
-df = pd.read_excel(arquivo_excel, sheet_name="BANCO FINALIZADO")
-# df = pd.read_excel(arquivo_excel, sheet_name="BANCO FINALIZADO CATI")
+# df = pd.read_excel(arquivo_excel, sheet_name="BANCO FINALIZADO")
+df = pd.read_excel(arquivo_excel, sheet_name="BANCO FINALIZADO CATI")
 print(df)
 
 # nets = ['Atendimento']
@@ -62,7 +64,7 @@ print(df)
 #                 print(f'\nID: {ID}')
 #                 print(f'Credenciadora: {Credenciadora}')
 
-#                 novo_nome = f"{row['Credenciadora']}\{row['NPS']}\{row['SEG_NOVO']}\{row['Credenciadora']}_{row['NPS']}_{row['SEG_NOVO']}_{row['NET']}_{row['ID_ONDA_CAMPO']}.mp3"
+#                 novo_nome = f"{row['Credenciadora']}\{row['NPS']}\{row['SEG_NOVO_BU']}\{row['Credenciadora']}_{row['NPS']}_{row['SEG_NOVO_BU']}_{row['NET']}_{row['ID_ONDA_CAMPO']}.mp3"
 #                 novo_caminho = os.path.join(caminho_audios, novo_nome)
 
 #                 # Criar diretórios se necessário
@@ -71,13 +73,16 @@ print(df)
 #                 # Evitar sobrescrever arquivos existentes
 #                 contador = 1
 #                 while os.path.exists(novo_caminho):
-#                     novo_nome = f"{row['Credenciadora']}\{row['NPS']}\{row['SEG_NOVO']}\{row['Credenciadora']}_{row['NPS']}_{row['SEG_NOVO']}_{row['NET']}_{row['ID_ONDA_CAMPO']}_{contador}.mp3"
+#                     novo_nome = f"{row['Credenciadora']}\{row['NPS']}\{row['SEG_NOVO_BU']}\{row['Credenciadora']}_{row['NPS']}_{row['SEG_NOVO_BU']}_{row['NET']}_{row['ID_ONDA_CAMPO']}_{contador}.mp3"
 #                     novo_caminho = os.path.join(caminho_audios, novo_nome)
 #                     contador += 1
 
 #                 # Renomear o arquivo
 #                 os.rename(caminho_subarquivos,novo_caminho)
 #                 # print(f"Arquivo '{arquivo}' renomeado para '{novo_caminho}'")
+            
+#         else:
+#             print(f"Arquivo {arquivo} não renomeado. ID extraído: {ID}, Credenciadora extraída: {Credenciadora}")
     
 #     except Exception as e:
 #         print(f"Erro inesperado {e=}, {type(e)=}")
@@ -95,7 +100,7 @@ for arquivo in arquivos:
         caminho_subarquivos = os.path.join(caminho_audios, arquivo)
         lista_nomes = arquivo.split("_")
         print(f'\nlista_nomes:\t{lista_nomes}')
-        ID = lista_nomes[1]
+        ID = lista_nomes[3]
         ID = os.path.splitext(ID)[0]
         print(f'ID: {ID}')
         print(f'Tamanho: {len(lista_nomes)}')
@@ -113,12 +118,12 @@ for arquivo in arquivos:
     try:
         for index, row in df.astype(str).iterrows():
             # Verificar se o nome está na coluna correta
-            if ID == row['TEL_FEITO'] and ATRIBUTO == row['ATRIBUTO']:
+            if ID == row['ID_ONDA'] and ATRIBUTO == row['ATRIBUTO']:
                 novo_nome = os.path.join(
                     row['Credenciadora'], 
                     row['NPS'], 
-                    row['SEG_NOVO'], 
-                    f"{row['Credenciadora']}_{row['NPS']}_{row['SEG_NOVO']}_{row['NET']}_{row['TEL_FEITO']}.WAV"
+                    row['SEG_NOVO_BU'], 
+                    f"{row['Credenciadora']}_{row['NPS']}_{row['SEG_NOVO_BU']}_{row['NET']}_{row['ID_ONDA']}.WAV"
                 )
                 novo_caminho = os.path.join(caminho_audios, novo_nome)
 
@@ -136,8 +141,8 @@ for arquivo in arquivos:
                     novo_nome = os.path.join(
                         row['Credenciadora'], 
                         row['NPS'], 
-                        row['SEG_NOVO'], 
-                        f"{row['Credenciadora']}_{row['NPS']}_{row['SEG_NOVO']}_{row['NET']}_{row['TEL_FEITO']}_{contador}.WAV"
+                        row['SEG_NOVO_BU'], 
+                        f"{row['Credenciadora']}_{row['NPS']}_{row['SEG_NOVO_BU']}_{row['NET']}_{row['ID_ONDA']}_{contador}.WAV"
                     )
                     novo_caminho = os.path.join(caminho_audios, novo_nome)
                     contador += 1
