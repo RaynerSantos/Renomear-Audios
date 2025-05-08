@@ -10,8 +10,6 @@ def adicionar_underline(texto):
     return texto
 
 # Caminhos
-# caminho_audios = r"C:\PROJETOS\Renomear_audios_py\cielo\cielo_com_underline\Teste"
-# arquivo_excel = r"C:\PROJETOS\Renomear_audios_py\cielo\cielo_com_underline\auto_Cielo_renomear\dados\bd_teste_rayner.xlsx"
 caminho_audios = r"C:\PROJETOS\Renomear_audios_py\Rayner\Audios Marco"
 arquivo_excel = r"C:\PROJETOS\Renomear_audios_py\Rayner\Renomear-Audios\Dados\EMP_Cielo Satisfacao_MAR25_2025.04.28__RAYNER.xlsx"
 
