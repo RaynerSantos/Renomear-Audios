@@ -5,7 +5,7 @@ import re
 
 ###=== Código utilizado para o banco Satisfação ===###
 
-caminho_audios = r"C:\PROJETOS\Renomear_audios_py\Rayner\Audios Marco"
+caminho_audios = r"C:\PROJETOS\Renomear_audios_py\Rayner\Audios Marco NOVO"
 
 #=== Código para renomear o nome da Credenciadora (formato: "211277750_MercadoPago_Promotor.mp3" (Campo)) ===#
 arquivos = os.listdir(caminho_audios)
@@ -45,31 +45,36 @@ for arquivo in arquivos:
         continue 
 
     try:
-        if ((Credenciadora == 'infinitpay') or (Credenciadora == 'infinitypay') or (Credenciadora == 'infinite') or (Credenciadora == 'infinitipay') or (Credenciadora == 'infiniti') or (Credenciadora == 'infinetepay')): 
+        count = 0
+        # if ((Credenciadora == 'infinitpay') or (Credenciadora == 'infinitypay') or (Credenciadora == 'infinite') or (Credenciadora == 'infinitipay') or (Credenciadora == 'infiniti') or (Credenciadora == 'infinetepay')): 
         # if ((Credenciadora == 'safra')):
         # if ((Credenciadora == 'pagseguros') or (Credenciadora == 'pageseguro') or (Credenciadora == 'pagdeguro')): 
-        # if ((Credenciadora == 'ton')):
+        # if ((Credenciadora == 'ton') or (Credenciadora == 'srone')):
         # if ((Credenciadora == 'mercadopag') or (Credenciadora == 'mercado')): 
         # if ((Credenciadora == 'getnat') or (Credenciadora == 'gatnet')):
-        # if ((Credenciadora == 'reede') or (Credenciadora == 'red')):
+        if ((Credenciadora == 'reede') or (Credenciadora == 'red')):
             print(f'\nID: {ID}')
             print(f'Credenciadora: {Credenciadora}')
 
-            novo_nome = f"{ID}_infinitepay_{cat_NPS}.mp3"
+            # novo_nome = f"{ID}_infinitepay_{cat_NPS}.mp3"
             # novo_nome = f"{ID}_safrapay_{cat_NPS}.mp3"
             # novo_nome = f"{ID}_pagseguro_{cat_NPS}.mp3"
             # novo_nome = f"{ID}_stone_{cat_NPS}.mp3"
             # novo_nome = f"{ID}_mercadopago_{cat_NPS}.mp3"
             # novo_nome = f"{ID}_getnet_{cat_NPS}.mp3"
-            # novo_nome = f"{ID}_rede_{cat_NPS}.mp3"
+            novo_nome = f"{ID}_rede_{cat_NPS}.mp3"
             novo_caminho = os.path.join(caminho_audios, novo_nome)
 
             # Renomear o arquivo
             os.rename(caminho_subarquivos, novo_caminho)
+            count += 1
             # print(f"Arquivo '{arquivo}' renomeado para '{novo_caminho}'")
             
         else:
             print(f"Arquivo {arquivo} não renomeado. ID extraído: {ID}, Credenciadora extraída: {Credenciadora}")
+       
     
     except Exception as e:
         print(f"Erro inesperado {e=}, {type(e)=}")
+    
+print(f"Contagem: {count}")
