@@ -10,8 +10,8 @@ def adicionar_underline(texto):
     return texto
 
 # Caminhos
-caminho_audios = r"C:\PROJETOS\Renomear_audios_py\Rayner\Audios Abril"
-arquivo_excel = r"C:\PROJETOS\Renomear_audios_py\Rayner\Renomear-Audios\Dados\BD_Cielo_NPS_Abril25_2025.05.12.xlsx"
+caminho_audios = r"C:\PROJETOS\Renomear_audios_py\Rayner\Audios Maio"
+arquivo_excel = r"C:\PROJETOS\Renomear_audios_py\Rayner\Renomear-Audios\Dados\BD_Cielo_NPSMensal_Maio_2025.06.04.xlsx"
 
 # Carregar o Excel
 pd.set_option('display.float_format', '{:.0f}'.format)
@@ -22,29 +22,28 @@ print(df)
 # nets = ['Atendimento']
 # df[nets] = df[nets].applymap(adicionar_underline)
 
-
-# #=== Código para renomear arquivos com o nome no seguinte formato: "gravacao_1120315658_800_59427_NEG_20241127152236" (Cati) ===#
+# #=== Código para renomear arquivos com o nome no seguinte formato: "1120315658_800_59427_NEG_20241127152236" (Cati) ===#
 # arquivos = os.listdir(caminho_audios)
 # for arquivo in arquivos:
-#     if arquivo.endswith(".mp3"):
+#     if arquivo.endswith(".WAV"):
 #         caminho_subarquivos = os.path.join(caminho_audios, arquivo)
 #         lista_nomes = arquivo.split("_")
 #         print(f'\nlista_nomes:\t{lista_nomes}')
 #         print(f'Tamanho: {len(lista_nomes)}')
-#         if len(lista_nomes) >= 2:
-#             ID = lista_nomes[0]
+#         if len(lista_nomes) >= 3:
+#             ID = lista_nomes[3]
 #             ID = os.path.splitext(ID)[0]
 #             print(f'ID: {ID}')
-#             # ATRIBUTO = lista_nomes[4]
-#             # ATRIBUTO = os.path.splitext(ATRIBUTO)[0]
-#             # print(f'ATRIBUTO: {ATRIBUTO}')
+#             ATRIBUTO = lista_nomes[4]
+#             ATRIBUTO = os.path.splitext(ATRIBUTO)[0]
+#             print(f'ATRIBUTO: {ATRIBUTO}')
 #         else:
 #             ID = lista_nomes[1]
 #             ID = os.path.splitext(ID)[0]
 #             print(f'ID: {ID}')
-#             # ATRIBUTO = lista_nomes[2]
-#             # ATRIBUTO = os.path.splitext(ATRIBUTO)[0]
-#             # print(f'ATRIBUTO: {ATRIBUTO}')
+#             ATRIBUTO = lista_nomes[2]
+#             ATRIBUTO = os.path.splitext(ATRIBUTO)[0]
+#             print(f'ATRIBUTO: {ATRIBUTO}')
 #     else:
 #         continue 
 
@@ -56,7 +55,7 @@ print(df)
 #                     # row['Credenciadora'], 
 #                     row['Class_NPS'], 
 #                     row['VSEG_1'], 
-#                     f"{row['Class_NPS']}_{row['VSEG_1']}_{row['NET']}_{row['ID_ONDA']}.mp3"
+#                     f"{row['Class_NPS']}_{row['VSEG_1']}_{row['NET']}_{row['ID_ONDA']}.WAV"
 #                 )
 #                 novo_caminho = os.path.join(caminho_audios, novo_nome)
 
@@ -75,7 +74,7 @@ print(df)
 #                         # row['Credenciadora'], 
 #                         row['Class_NPS'], 
 #                         row['VSEG_1'], 
-#                         f"{row['Class_NPS']}_{row['VSEG_1']}_{row['NET']}_{row['ID_ONDA']}_{contador}.mp3"
+#                         f"{row['Class_NPS']}_{row['VSEG_1']}_{row['NET']}_{row['ID_ONDA']}_{contador}.WAV"
 #                     )
 #                     novo_caminho = os.path.join(caminho_audios, novo_nome)
 #                     contador += 1
@@ -188,18 +187,18 @@ Audios_divergentes = []
 Nao_encontrado_no_banco = []
 
 for arquivo in arquivos:
-    if arquivo.endswith(".mp3"):
-    # if arquivo.endswith(".WAV"):
+    # if arquivo.endswith(".mp3"):
+    if arquivo.endswith(".WAV"):
         lista_nomes = arquivo.split("_")
         
-        if len(lista_nomes) <= 3:
-            ID = lista_nomes[0].split(".")[0].strip()
+        if len(lista_nomes) >= 3:
+            ID = lista_nomes[3].split(".")[0].strip()
             # Credenciadora = lista_nomes[1].split(".")[0].strip()
-            # ATRIBUTO = lista_nomes[4].split(".")[0].strip()
+            ATRIBUTO = lista_nomes[4].split(".")[0].strip()
         else:
-            ID = lista_nomes[0].split(".")[0].strip()
+            ID = lista_nomes[1].split(".")[0].strip()
             # Credenciadora = lista_nomes[2].split(".")[0].strip()
-            # ATRIBUTO = lista_nomes[4].split(".")[0].strip()
+            ATRIBUTO = lista_nomes[2].split(".")[0].strip()
 
         # print(f"ID extraído: {ID}, Credenciadora extraída: {Credenciadora}")
         # print(f"ID extraído: {ID}, ATRIBUTO extraído: {ATRIBUTO}")
@@ -212,30 +211,31 @@ for arquivo in arquivos:
             count_audio_nao_encontrado += 1
             Audio_nao_encontrado.append(ID)
         # elif (df["ID_ONDA"] == ID).any():
-        # # elif ((df["ID_ONDA"] == ID) & (df["ATRIBUTO"] != ATRIBUTO)).any():
-        #     count_audios_divergentes += 1
-        #     Audios_divergentes.append(ID)
+        elif ((df["ID_ONDA"] == ID) & (df["ATRIBUTO"] != ATRIBUTO)).any():
+            count_audios_divergentes += 1
+            Audios_divergentes.append(ID)
         else:
             count_Nao_encontrado_no_banco += 1
             Nao_encontrado_no_banco.append(ID)
 
 print(f'\nContagem de NS/NR (Rose): {count_NSNR}')
 print(f'Contagem de Áudios não encontrados (Rose): {count_audio_nao_encontrado}')
-# print(f'Contagem de Áudios divergentes: {count_audios_divergentes}')
+print(f'Contagem de Áudios divergentes: {count_audios_divergentes}') # ID confere com o banco, porém, o ATRIBUTO é divergente
 print(f'Contagem de ID Não encontrado no banco: {count_Nao_encontrado_no_banco}')
 
 
 dados_para_verificar_NS_NR = pd.DataFrame({'ID_ONDA_TEL_FEITO': NS_NR})
 dados_para_verificar_Audios_nao_encontrado = pd.DataFrame({'ID_ONDA_TEL_FEITO': Audio_nao_encontrado})
-# dados_para_verificar_Audios_divergentes = pd.DataFrame({'ID_ONDA_TEL_FEITO': Audios_divergentes})
+dados_para_verificar_Audios_divergentes = pd.DataFrame({'ID_ONDA_TEL_FEITO': Audios_divergentes}) # ID confere com o banco, porém, o ATRIBUTO é divergente
 dados_para_verificar_Nao_encontrado_no_banco = pd.DataFrame({'ID_ONDA_TEL_FEITO':Nao_encontrado_no_banco})
 
 
+# with pd.ExcelWriter(r"C:\PROJETOS\Renomear_audios_py\Rayner\Renomear-Audios\Dados\Verificar_audios_nao_renomeados.xlsx", 
 with pd.ExcelWriter(r"C:\PROJETOS\Renomear_audios_py\Rayner\Renomear-Audios\Dados\Verificar_audios_nao_renomeados.xlsx", 
                     engine='xlsxwriter') as writer:
     dados_para_verificar_NS_NR.to_excel(writer, sheet_name='NS_NR', index=False)
     dados_para_verificar_Audios_nao_encontrado.to_excel(writer, sheet_name='Audio_Nao_encontrado', index=False)
-    # dados_para_verificar_Audios_divergentes.to_excel(writer, sheet_name='Audios_divergentes', index=False)
+    dados_para_verificar_Audios_divergentes.to_excel(writer, sheet_name='Audios_divergentes', index=False) # ID confere com o banco, porém, o ATRIBUTO é divergente
     dados_para_verificar_Nao_encontrado_no_banco.to_excel(writer, sheet_name='ID_Nao_encontrado', index=False)
     
     
